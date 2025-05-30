@@ -11,6 +11,9 @@ export default function FeedScreen() {
 			renderItem={({ item }) => <PostListItem post={item} />}
 			contentContainerStyle={{
 				gap: 20,
+				maxWidth: 600,
+				width: '100%',
+				alignSelf: 'center',
 			}}
 			showsVerticalScrollIndicator={false}
 		/>
