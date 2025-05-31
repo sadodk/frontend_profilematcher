@@ -1,6 +1,23 @@
 import { Stack } from 'expo-router';
+import { useColorScheme } from 'react-native';
 import '../../global.css';
 
 export default function RootLayout() {
-	return <Stack screenOptions={{ headerShown: false }} />; // This is a placeholder for the root layout, which can be customized later.
+	const colorScheme = useColorScheme();
+	const isDark = colorScheme === 'dark';
+
+	return (
+		<Stack
+			screenOptions={{
+				headerStyle: {
+					backgroundColor: isDark ? '#111827' : '#ffffff',
+				},
+				headerTintColor: isDark ? '#ffffff' : '#000000',
+				contentStyle: {
+					backgroundColor: isDark ? '#111827' : '#ffffff',
+				},
+				headerShown: false, // Hide the header for all screens
+			}}
+		/>
+	);
 }

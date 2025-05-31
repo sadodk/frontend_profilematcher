@@ -1,4 +1,4 @@
-import { View, Image, Text, Pressable } from 'react-native';
+import { View, Image, Text, Pressable, useColorScheme } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useEffect } from 'react';
 
@@ -21,6 +21,8 @@ export default function ImagePickerPreview({
 	variant = 'square',
 	size = 208, // default size (w-52 = 13rem = 208px)
 }: ImagePickerPreviewProps) {
+	const isDark = useColorScheme() === 'dark';
+
 	const pickImage = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ['images'],
@@ -49,7 +51,7 @@ export default function ImagePickerPreview({
 		width: size,
 		height: variant === 'square' ? size : size,
 		borderRadius: variant === 'round' ? size / 2 : 8,
-		backgroundColor: '#e5e7eb', // gray-200
+		backgroundColor: isDark ? '#374151' : '#e5e7eb', // dark:gray-700 / gray-200
 	};
 
 	const ImageComponent = image ? (
@@ -66,7 +68,9 @@ export default function ImagePickerPreview({
 			style={placeholderStyles}
 			className="mb-4 items-center justify-center"
 		>
-			<Text className="text-gray-500">Tap to select image</Text>
+			<Text className={`${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+				Tap to select image
+			</Text>
 		</Pressable>
 	);
 
@@ -74,7 +78,11 @@ export default function ImagePickerPreview({
 		<View className={className}>
 			{ImageComponent}
 			<Pressable onPress={pickImage}>
-				<Text className="text-blue-500 font-semibold m-5 self-center">
+				<Text
+					className={`font-semibold m-5 self-center ${
+						isDark ? 'text-blue-400' : 'text-blue-500'
+					}`}
+				>
 					Change
 				</Text>
 			</Pressable>
